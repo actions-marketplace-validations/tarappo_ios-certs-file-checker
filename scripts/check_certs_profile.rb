@@ -43,6 +43,7 @@ end
 limit_days = ENV["EXPIRE_LIMIT_DAYS"]
 slack_webhook_url = ENV["SLACK_WEBHOOK_URL"]
 extra_message = ENV["EXTRA_MESSAGE"]
+skip_development_certificate = ENV["SKIP_DEVELOPMENT_CERTIFICATE"]
 
 # provisioning profile
 expire_pp_list = AppleCertsInfo.provisioning_profile_list_limit_days_for(days: limit_days)
@@ -50,9 +51,12 @@ expire_pp_message = Message.expire_list(list: expire_pp_list, type: :provisionin
 puts expire_pp_message
 
 # certificate
-expire_dev_cert_list = AppleCertsInfo.certificate_development_list_limit_days_for(days: limit_days)
-expire_dev_cert_message = Message.expire_list(list: expire_dev_cert_list, type: :development_certificate)
-puts expire_dev_cert_message
+puts "[skip Development Certificate]" if skip_development_certificate
+unless skip_development_certificate
+    expire_dev_cert_list = AppleCertsInfo.certificate_development_list_limit_days_for(days: limit_days)
+    expire_dev_cert_message = Message.expire_list(list: expire_dev_cert_list, type: :development_certificate)
+    puts expire_dev_cert_message
+end
 
 expire_dist_cert_list = AppleCertsInfo.certificate_distribution_list_limit_days_for(days: limit_days)
 expire_dist_cert_message = Message.expire_list(list: expire_dist_cert_list, type: :development_certificate)

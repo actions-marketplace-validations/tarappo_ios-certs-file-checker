@@ -6,6 +6,10 @@ inputs:
   expire_limit_days:
     description: 'expire limit days'
     default: 30
+  skip_development_certificate:
+    description: 'skip Development Certificates'
+    type: boolean
+    default: false
   extra_message:
     description: 'slack message add extra message'
 runs:
@@ -27,5 +31,6 @@ runs:
 
         export SLACK_WEBHOOK_URL=${{ inputs.slack_webhook_url }}
         export EXPIRE_LIMIT_DAYS=${{ inputs.expire_limit_days }}
+        export SKIP_DEVELOPMENT_CERTIFICATE=${{ inputs.skip_development_certificate }}
         export EXTRA_MESSAGE=${{ inputs.extra_message }}
         bundle exec ruby ./scripts/check_certs_profile.rb
