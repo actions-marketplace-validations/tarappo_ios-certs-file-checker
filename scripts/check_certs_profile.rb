@@ -22,7 +22,7 @@ class Message
 
    # slackに投稿するためのメッセージの整形
    def self.create_slack_message(message_list:, type:)
-    return "" if message_list.count == 0
+    return "" if (message_list.nil? || message_list.count == 0)
 
     case type
     when :distribution_certificate then
