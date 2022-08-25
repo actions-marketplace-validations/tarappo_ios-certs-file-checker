@@ -1,0 +1,22 @@
+name: "integration-test"
+
+# Controls when the action will run. 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: verify ios certs file
+        id: expire_check
+        uses: ./
+        with:
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          expire_limit_days: 365
+          extra_message: "自動テストです"
