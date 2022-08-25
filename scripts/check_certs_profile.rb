@@ -59,6 +59,7 @@ puts expire_dist_cert_message
 
 # SLACK通知先がある場合
 unless slack_webhook_url.nil?
+    puts "[start] slack notify"
     expire_pp = Message.create_slack_message(message_list: expire_pp_message, type: :provisioning_profile)
     expire_dev_cert = Message.create_slack_message(message_list: expire_dev_cert_message, type: :development_certificate)
     expire_dist_cert = Message.create_slack_message(message_list: expire_dist_cert_message, type: :distribution_certificate)
