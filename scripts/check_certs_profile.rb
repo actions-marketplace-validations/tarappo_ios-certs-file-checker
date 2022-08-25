@@ -22,6 +22,8 @@ class Message
 
    # slackに投稿するためのメッセージの整形
    def self.create_slack_message(message_list:, type:)
+    return "" if message_list.count == 0
+
     case type
     when :distribution_certificate then
         prefix_message = "[Certificate(Distribution)]\n"
@@ -30,7 +32,7 @@ class Message
     when :provisioning_profile then
         prefix_message = "[Provisioning Profile]\n"
     end
-    
+
     message = prefix_message + message_list.join("\n") + "\n\n"
 
     message
@@ -63,10 +65,11 @@ unless slack_webhook_url.nil?
     expire_pp = Message.create_slack_message(message_list: expire_pp_message, type: :provisioning_profile)
     expire_dev_cert = Message.create_slack_message(message_list: expire_dev_cert_message, type: :development_certificate)
     expire_dist_cert = Message.create_slack_message(message_list: expire_dist_cert_message, type: :distribution_certificate)
-
     slack_message = expire_pp + expire_dev_cert + expire_dist_cert
-    slack_message +=  extra_message unless extra_message.nil?
 
-   notifier = Slack::Notifier.new slack_webhook_url
-   notifier.ping slack_message
+    unless slack_message.empty?
+        slack_message +=  extra_message unless extra_message.nil?
+        notifier = Slack::Notifier.new slack_webhook_url
+        notifier.ping slack_message
+    end
 end
