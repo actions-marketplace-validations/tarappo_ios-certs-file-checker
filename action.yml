@@ -1,0 +1,24 @@
+name: 'Check for iOS Certs File'
+description: 'Verify Cerificate files and Provisioning Profile'
+inputs:
+  slack_webhook_url:
+    description: 'Slack Webhook URL'
+  expire_limit_days:
+    description: 'expire limit days'
+    default: 30
+  extra_message:
+    description: 'slack message add extra message'
+runs:
+  using: "composite"
+  steps:
+    - name: "Verify iOS Certs files"
+      shell: bash
+      id: expire_check
+      run: |
+        bundle config set path 'vendor/bundle'
+        bundle install
+
+        export SLACK_WEBHOOK_URL=${{ inputs.slack_webhook_url }}
+        export EXPIRE_LIMIT_DAYS=${{ inputs.expire_limit_days }}
+        export EXTRA_MESSAGE=${{ inputs.extra_message }}
+        bundle exec ruby ./scripts/check_certs_profile.rb
