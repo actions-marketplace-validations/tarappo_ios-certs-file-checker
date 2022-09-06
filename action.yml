@@ -19,6 +19,7 @@ runs:
       shell: bash
       id: expire_check
       run: |
+        cd $GITHUB_ACTION_PATH
         bundle config set path 'vendor/bundle'
         bundle install
 
@@ -26,4 +27,4 @@ runs:
         export EXPIRE_LIMIT_DAYS=${{ inputs.expire_limit_days }}
         export SKIP_DEVELOPMENT_CERTIFICATE=${{ inputs.skip_development_certificate }}
         export EXTRA_MESSAGE=${{ inputs.extra_message }}
-        bundle exec ruby $GITHUB_ACTION_PATH/scripts/check_certs_profile.rb
+        bundle exec ruby ./scripts/check_certs_profile.rb
