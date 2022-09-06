@@ -33,4 +33,5 @@ runs:
         export EXPIRE_LIMIT_DAYS=${{ inputs.expire_limit_days }}
         export SKIP_DEVELOPMENT_CERTIFICATE=${{ inputs.skip_development_certificate }}
         export EXTRA_MESSAGE=${{ inputs.extra_message }}
-        bundle exec ruby ./.github/workflows/scripts/check_certs_profile.rb
+        ls -l
+        bundle exec ruby scripts/check_certs_profile.rb
