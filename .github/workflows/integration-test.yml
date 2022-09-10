@@ -13,18 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: verify ios certs file（skip development）
+      - name: verify ios certs file
         id: expire_check
         uses: ./
         with:
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
           expire_limit_days: 365
-          extra_message: "自動テストです"
-
-      - name: verify ios certs file
-        id: expire_check_skip_is_true
-        uses: ./
-        with:
-          expire_limit_days: 365
-          skip_development_certificate: true
           extra_message: "自動テストです"
