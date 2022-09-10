@@ -55,13 +55,14 @@ puts expire_pp_message
 puts "skip_development_certificate: #{skip_development_certificate}"
 puts "[skip Development Certificate]" if skip_development_certificate == "true"
 if skip_development_certificate == "false"
+    puts "[check Development Certificate]" 
     expire_dev_cert_list = AppleCertsInfo.certificate_development_list_limit_days_for(days: limit_days)
     expire_dev_cert_message = Message.expire_list(list: expire_dev_cert_list, type: :development_certificate)
     puts expire_dev_cert_message
 end
 
 expire_dist_cert_list = AppleCertsInfo.certificate_distribution_list_limit_days_for(days: limit_days)
-expire_dist_cert_message = Message.expire_list(list: expire_dist_cert_list, type: :development_certificate)
+expire_dist_cert_message = Message.expire_list(list: expire_dist_cert_list, type: :distribution_certificate)
 puts expire_dist_cert_message
 
 
