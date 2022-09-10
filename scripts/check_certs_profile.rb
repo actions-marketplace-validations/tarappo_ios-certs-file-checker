@@ -45,14 +45,15 @@ slack_webhook_url = ENV["SLACK_WEBHOOK_URL"]
 extra_message = ENV["EXTRA_MESSAGE"]
 skip_development_certificate = ENV["SKIP_DEVELOPMENT_CERTIFICATE"]
 
+
 # provisioning profile
 expire_pp_list = AppleCertsInfo.provisioning_profile_list_limit_days_for(days: limit_days)
 expire_pp_message = Message.expire_list(list: expire_pp_list, type: :provisioning_profile)
 puts expire_pp_message
 
 # certificate
-puts "[skip Development Certificate]" if skip_development_certificate
-unless skip_development_certificate
+puts "[skip Development Certificate]" if skip_development_certificate == true
+if skip_development_certificate == false
     expire_dev_cert_list = AppleCertsInfo.certificate_development_list_limit_days_for(days: limit_days)
     expire_dev_cert_message = Message.expire_list(list: expire_dev_cert_list, type: :development_certificate)
     puts expire_dev_cert_message
