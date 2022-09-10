@@ -52,6 +52,7 @@ expire_pp_message = Message.expire_list(list: expire_pp_list, type: :provisionin
 puts expire_pp_message
 
 # certificate
+puts skip_development_certificate
 puts "[skip Development Certificate]" if skip_development_certificate == true
 if skip_development_certificate == false
     expire_dev_cert_list = AppleCertsInfo.certificate_development_list_limit_days_for(days: limit_days)
