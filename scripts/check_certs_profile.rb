@@ -14,7 +14,7 @@ class Message
     
     message = []
     list.each do |data|
-      message << "#{data[args]}（残り約#{data[:limit_days]}日）"
+      message << "- #{data[args]}（残り約#{data[:limit_days]}日）"
     end
 
     message
