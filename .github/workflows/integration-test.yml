@@ -22,7 +22,7 @@ jobs:
           extra_message: "自動テストです"
 
       - name: verify ios certs file
-        id: expire_check
+        id: expire_check_skip_is_true
         uses: ./
         with:
           slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
