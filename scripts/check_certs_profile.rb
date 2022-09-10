@@ -52,9 +52,9 @@ expire_pp_message = Message.expire_list(list: expire_pp_list, type: :provisionin
 puts expire_pp_message
 
 # certificate
-puts skip_development_certificate
-puts "[skip Development Certificate]" if skip_development_certificate == true
-if skip_development_certificate == false
+puts "skip_development_certificate: #{skip_development_certificate}"
+puts "[skip Development Certificate]" if skip_development_certificate == "true"
+if skip_development_certificate == "false"
     expire_dev_cert_list = AppleCertsInfo.certificate_development_list_limit_days_for(days: limit_days)
     expire_dev_cert_message = Message.expire_list(list: expire_dev_cert_list, type: :development_certificate)
     puts expire_dev_cert_message
@@ -66,6 +66,7 @@ puts expire_dist_cert_message
 
 
 # SLACK通知先がある場合
+puts slack_webhook_url
 unless slack_webhook_url.nil?
     puts "[start] slack notify"
     expire_pp = Message.create_slack_message(message_list: expire_pp_message, type: :provisioning_profile)
