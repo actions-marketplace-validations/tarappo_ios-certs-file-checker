@@ -13,7 +13,7 @@ You add the follows step on your github actions workflows.
 ```
  - name: verify ios certs file
    id: expire_check
-   uses: tarappo/ios-certs-file-checker@v0.0.8
+   uses: tarappo/ios-certs-file-checker@v0.0.9
    with:
      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
      expire_limit_days: 30
