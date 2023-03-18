@@ -1,5 +1,9 @@
 name: 'Check for iOS Certs File'
 description: 'Verify Cerificate files and Provisioning Profile'
+branding:
+  color: 'yellow'
+  icon: 'alert-circle'
+
 inputs:
   slack_webhook_url:
     description: 'Slack Webhook URL'
